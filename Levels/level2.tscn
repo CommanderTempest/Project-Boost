@@ -1,0 +1,104 @@
+[gd_scene load_steps=11 format=3 uid="uid://bbeliaht738qt"]
+
+[ext_resource type="Script" path="res://Landing Pad.gd" id="1_nea8x"]
+[ext_resource type="PackedScene" uid="uid://dlj5sgeryyejw" path="res://node_3d.tscn" id="2_luk6k"]
+[ext_resource type="PackedScene" uid="uid://b0kfen6j7xnt6" path="res://moving_hazard.tscn" id="3_7qhmv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nxhl8"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_mxs2y"]
+sky_material = SubResource("ProceduralSkyMaterial_nxhl8")
+
+[sub_resource type="Environment" id="Environment_tyhn0"]
+background_mode = 2
+sky = SubResource("Sky_mxs2y")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_042pd"]
+albedo_color = Color(0.619608, 0.333333, 0.168627, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08o5o"]
+albedo_color = Color(0.741176, 0.239216, 0.235294, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k4ww0"]
+albedo_color = Color(0, 0.611765, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rbtbf"]
+albedo_color = Color(0.564706, 0, 0.207843, 1)
+
+[node name="Level" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tyhn0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="CSGBox3D" parent="." groups=["Floor"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+use_collision = true
+size = Vector3(30, 8, 5)
+material = SubResource("StandardMaterial3D_042pd")
+
+[node name="Launch Pad" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2214, 0.0414694, 0)
+use_collision = true
+size = Vector3(1.5, 0.1, 1.5)
+material = SubResource("StandardMaterial3D_08o5o")
+
+[node name="Landing Pad" type="CSGBox3D" parent="." groups=["Goal"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2155, 0.0245683, -0.29019)
+use_collision = true
+size = Vector3(1.5, 0.1, 1.5)
+material = SubResource("StandardMaterial3D_k4ww0")
+script = ExtResource("1_nea8x")
+file_path = "res://Levels/level.tscn"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.998537, -0.0540788, 0, 0.0540788, 0.998537, 0, 5, 9.642)
+
+[node name="Player" parent="." instance=ExtResource("2_luk6k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.1846, 1.19767, 0)
+
+[node name="MovingHazard" parent="." instance=ExtResource("3_7qhmv")]
+destination = Vector3(0, 2, 0)
+duration = 3.0
+
+[node name="MovingHazard2" parent="." instance=ExtResource("3_7qhmv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.28007, 3.0425, 0)
+destination = Vector3(0, -2, 0)
+duration = 3.0
+
+[node name="Hazard" type="CSGBox3D" parent="." groups=["Floor"]]
+transform = Transform3D(1.24552, 0, 1.42707, 0, 3.19398, 0, -1.36626, 0, 1.30095, -2.34658, 0.235569, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_rbtbf")
+
+[node name="Hazard4" type="CSGBox3D" parent="." groups=["Floor"]]
+transform = Transform3D(3.0729, 0, 0.246006, 0, 3.19398, 0, -0.365007, 0, 2.07106, -6.42553, 6.2121, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_rbtbf")
+
+[node name="Hazard5" type="CSGBox3D" parent="." groups=["Floor"]]
+transform = Transform3D(1.09772, 0, 0.088257, 0, 6.49348, 0, -0.130389, 0, 0.743013, -5.80589, 3.30928, -1.29249)
+use_collision = true
+material = SubResource("StandardMaterial3D_rbtbf")
+
+[node name="Hazard6" type="CSGBox3D" parent="." groups=["Floor"]]
+transform = Transform3D(1.09772, 0, 0.088257, 0, 6.49348, 0, -0.130389, 0, 0.743013, -7.33085, 3.30928, 1.0424)
+use_collision = true
+material = SubResource("StandardMaterial3D_rbtbf")
+
+[node name="Hazard3" type="CSGBox3D" parent="." groups=["Floor"]]
+transform = Transform3D(1.84869, 0, -0.0190083, 0, 3.19398, 0, 0.0181984, 0, 1.93097, 5.15392, 0.235569, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_rbtbf")
+
+[node name="Hazard2" type="CSGBox3D" parent="." groups=["Floor"]]
+transform = Transform3D(2.22811, 0, 2.66205, 0, 3.19398, 0, -2.44412, 0, 2.42678, 3.65429, 5.70328, 0)
+use_collision = true
+material = SubResource("StandardMaterial3D_rbtbf")
