@@ -39,7 +39,8 @@ func _process(delta: float) -> void:
 		left_boost_particles.emitting = true
 	else:
 		left_boost_particles.emitting = false
-
+	if Input.is_action_pressed("ui_cancel"):
+		get_tree().quit()
 
 func _on_body_entered(body: Node) -> void:
 	if (is_transitioning == false):
